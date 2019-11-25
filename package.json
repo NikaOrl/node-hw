@@ -1,0 +1,29 @@
+{
+  "name": "node-hw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task1": "node task1/task1_1.js",
+    "task2": "node task1/task1_2.js",
+    "task3": "node task1/task1_3.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikaOrl/node-hw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikaOrl/node-hw/issues"
+  },
+  "homepage": "https://github.com/NikaOrl/node-hw#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}
