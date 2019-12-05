@@ -6,7 +6,7 @@ csv()
   .fromFile(csvFilePath)
   .then(jsonArray => {
     fs.writeFile(
-      'task1/output.txt',
+      'task1/output_by_task2.txt',
       jsonArray.map(item => JSON.stringify(item)).join('\n'),
       err => {
         if (err) {

@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "task1": "node task1/task1_1.js",
-    "task2": "node task1/task1_2.js",
-    "task3": "node task1/task1_3.js"
+    "task1.1": "node task1/task1_1.js",
+    "task1.2": "node task1/task1_2.js",
+    "task1.3": "./node_modules/.bin/babel task1/task1_3.js --out-dir lib/task1.3 && node lib/task1.3/task1_3.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +20,13 @@
   },
   "homepage": "https://github.com/NikaOrl/node-hw#readme",
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
     "nodemon": "^2.0.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
     "csvtojson": "^2.0.10"
   }
 }
