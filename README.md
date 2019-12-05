@@ -11,7 +11,7 @@ Write a program which reads a string from the standard input stdin, reverses it 
 - The program should be running in a stand-by mode and should not be terminated after the
   first-string processing
 
-The task is started by <i>npm run task1.1</i>
+The task could be started by <i>npm run task1.1</i>
 
 ### TASK 1.2
 
@@ -24,10 +24,10 @@ Write a program which should do the following:
 - Do not load all the content of the csv file into RAM via stream (read/write file content line by line).
 - In case of read/write errors, log them in the console.
 
-The task is started by <i>npm run task1.2</i>
+The task could be started by <i>npm run task1.2</i>
 
 ### TASK 1.3
 
 Rewrite the above-mentioned programs to use babel (https://babeljs.io/) and ES6 modules.
 
-The task is started by <i>npm run task1.3</i>
+The task could be started by <i>npm run task1.3</i>
