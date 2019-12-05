@@ -26,12 +26,12 @@ listen();
 import { createReadStream, createWriteStream } from 'fs';
 import { csv } from 'csvtojson';
 
-var readStream = createReadStream(
+const readStream = createReadStream(
   './task1/csv/node_mentoring_t1_2_input_example.csv'
 ).on('error', error => {
   console.log(error);
 });
-var writeStream = createWriteStream('task1/output_by_task3.txt').on(
+const writeStream = createWriteStream('task1/output_by_task3.txt').on(
   'error',
   error => {
     console.log(error);
