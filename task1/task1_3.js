@@ -7,19 +7,16 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-function listen() {
-  rl.question('Input: ', answer => {
-    console.log(
-      `Output: ${answer
-        .split('')
-        .reverse()
-        .join('')}`
-    );
-
-    listen();
-  });
-}
-listen();
+process.stdout.write('Input: ');
+rl.on('line', answer => {
+  process.stdout.write(
+    `Output: ${answer
+      .split('')
+      .reverse()
+      .join('')}\n`
+  );
+  process.stdout.write('Input: ');
+});
 
 /* task2 */
 
