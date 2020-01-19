@@ -14,6 +14,4 @@ const presets = [
   '@babel/typescript'
 ];
 
-const plugins = ['@babel/proposal-optional-chaining'];
-
-module.exports = { presets, plugins };
+module.exports = { presets };
