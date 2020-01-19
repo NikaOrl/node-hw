@@ -10,7 +10,10 @@ const presets = [
       },
       useBuiltIns: 'usage'
     }
-  ]
+  ],
+  '@babel/typescript'
 ];
 
-module.exports = { presets };
+const plugins = ['@babel/proposal-optional-chaining'];
+
+module.exports = { presets, plugins };
