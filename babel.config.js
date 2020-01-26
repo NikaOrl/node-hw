@@ -10,7 +10,8 @@ const presets = [
       },
       useBuiltIns: 'usage'
     }
-  ]
+  ],
+  '@babel/typescript'
 ];
 
 module.exports = { presets };
