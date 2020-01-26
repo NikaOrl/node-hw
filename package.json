@@ -7,7 +7,8 @@
     "task1.1": "node task1/task1_1.js",
     "task1.2": "node task1/task1_2.js",
     "task1.3": "./node_modules/.bin/babel task1/task1_3.js --out-dir lib/task1.3 && node lib/task1.3/task1_3.js",
-    "task2": "nodemon --exec babel-node task2/task2.ts --extensions \".ts\""
+    "task2": "nodemon --exec babel-node task2/task2.ts --extensions \".ts\"",
+    "gen_table": "babel-node create_user_table.ts --extensions \".ts\""
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,8 @@
     "@hapi/joi": "^17.0.2",
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
+    "knex": "^0.20.8",
+    "pg": "^7.17.1",
     "uuid": "^3.4.0"
   }
 }
