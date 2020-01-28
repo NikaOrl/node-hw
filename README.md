@@ -67,7 +67,7 @@ pg_db=# \list
 npm run gen_table
 ```
 
-Now you have the table w/ all the test data. You can check it by the command `SELECT * FROM users;` in the terminal inside psql in the postgres database. You'll see sth like
+Now you have the table w/ all the test data. You can check it by the commands `\c pg_db` and `SELECT * FROM users;` in the terminal inside psql in the postgres database. You'll see sth like
 
 ```shell
 pg_db=# SELECT * FROM users;

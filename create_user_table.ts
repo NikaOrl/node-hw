@@ -1,18 +1,42 @@
-import Knex from 'knex';
 import { options } from './db.config';
 import { v1 as uuid } from 'uuid';
 
-export type User = {
-  id: string;
-  login: string;
-  password: string;
-  age: number;
-  isDeleted: boolean;
-};
+import { Sequelize } from 'sequelize-typescript';
+import { User } from './user/user.model';
 
-const knex: Knex = Knex(options as Knex.Config);
+const sequelize = new Sequelize({
+  host: options.connection.host,
+  database: options.connection.database,
+  username: options.connection.user,
+  dialect: 'postgres',
+  models: [User],
+  define: {
+    timestamps: false
+  }
+});
 
-const users: User[] = [
+sequelize
+  .authenticate()
+  .then(() => {
+    return User.sync({ force: true });
+  })
+  .then(() => {
+    console.log('Connection established successfully.');
+    Promise.all(
+      users.map(userData => {
+        const user = new User(userData);
+        return user.save();
+      })
+    ).then(() => {
+      sequelize.close();
+    });
+  })
+  .catch((err: Error) => {
+    console.error('Unable to connect to the database:', err);
+    sequelize.close();
+  });
+
+const users = [
   {
     id: uuid(),
     login: 'ivan@stud.com',
@@ -84,33 +108,3 @@ const users: User[] = [
     isDeleted: false
   }
 ];
-
-knex.schema
-  .dropTable('users') // dropping for the creating
-  .createTable('users', (table: Knex.TableBuilder) => {
-    // creating
-    table.string('id');
-    table.string('login');
-    table.string('password');
-    table.integer('age');
-    table.boolean('isDeleted');
-  })
-  .then(() => {
-    console.log('table users created');
-  })
-  .catch((err: Error) => {
-    console.log(err);
-    throw err;
-  })
-  .then(() => {
-    knex('users') // inserting
-      .insert(users)
-      .then(() => console.log('users inserted'))
-      .catch(err => {
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        knex.destroy();
-      });
-  });
