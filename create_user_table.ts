@@ -2,7 +2,7 @@ import { options } from './db.config';
 import { v1 as uuid } from 'uuid';
 
 import { Sequelize } from 'sequelize-typescript';
-import { User } from './user/user.model';
+import { User } from './nest-app/src/users/users.model';
 
 const sequelize = new Sequelize({
   host: options.connection.host,
