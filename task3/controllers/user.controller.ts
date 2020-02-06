@@ -50,9 +50,9 @@ export default class UserController {
       const deletedUser = await UserService.deleteUser(req.params.id);
       if (!deletedUser)
         return res.status(404).json({ mesage: 'User not found' });
-      return res.status(200).send('User is deleted');
+      return res.status(200).json(deletedUser);
     } catch (err) {
-      res.status(500).send('User not found :(');
+      res.status(500).json({ error: err.message });
     }
   }
 }

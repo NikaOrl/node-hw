@@ -10,7 +10,8 @@
     "task2": "nodemon --exec babel-node task2/task2.ts --extensions \".ts\"",
     "gen_table": "babel-node create_user_table.ts --extensions \".ts\"",
     "task3_nest": "copyfiles db.config.ts nest-app/src && cd ./nest-app && npm run start",
-    "postinstall": "cd ./nest-app && npm i"
+    "postinstall": "cd ./nest-app && npm i",
+    "task3": "nodemon --exec babel-node task3/index.ts --extensions \".ts\""
   },
   "repository": {
     "type": "git",
