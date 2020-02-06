@@ -39,14 +39,12 @@ export class UsersService {
   }
 
   async getUsers(loginSubstr: string, limit: number): Promise<IUser[]> {
-    let lookupValue = loginSubstr.toLowerCase();
-
     return this.usersRepository.findAll<User>({
       where: {
         login: Sequelize.where(
           Sequelize.fn('LOWER', Sequelize.col('login')),
           'LIKE',
-          '%' + lookupValue + '%'
+          '%' + loginSubstr + '%'
         )
       },
       limit
