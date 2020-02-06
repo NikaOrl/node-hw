@@ -1,6 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { User, IUser } from './users.model';
 import { Sequelize } from 'sequelize-typescript';
+import { v1 as uuid } from 'uuid';
+
+import { User, IUser } from './users.model';
+import { CreateUserDto } from './users.controller';
 
 @Injectable()
 export class UsersService {
@@ -12,12 +15,12 @@ export class UsersService {
     return User.findByPk(id);
   }
 
-  async createUser(data: IUser) {
-    const user = new User(data);
+  async createUser(data: CreateUserDto) {
+    const user = new User({ ...data, id: uuid(), isDeleted: false });
     return user.save();
   }
 
-  async updateUserById(id: string, data: IUser) {
+  async updateUserById(id: string, data: CreateUserDto) {
     const { login, password, age } = data;
     return User.update(
       {

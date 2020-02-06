@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { User } from './users/users.model';
+import { User } from '../users/users.model';
+import { options } from '../db.config';
 
 export const databaseProviders = [
   {
@@ -8,9 +9,9 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: '127.0.0.1',
-        username: 'orlovve1',
-        database: 'pg_db',
+        host: options.connection.host,
+        username: options.connection.user,
+        database: options.connection.database,
         define: {
           timestamps: false
         }

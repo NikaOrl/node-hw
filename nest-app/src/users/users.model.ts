@@ -16,6 +16,11 @@ export interface IUser {
   isDeleted: boolean;
 }
 
+export interface IUserSearch {
+  loginSubstring: string;
+  limit: number;
+}
+
 @Table({ tableName: 'users' })
 export class User extends Model<User> {
   @PrimaryKey
