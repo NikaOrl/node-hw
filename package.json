@@ -8,7 +8,7 @@
     "task1.2": "node task1/task1_2.js",
     "task1.3": "./node_modules/.bin/babel task1/task1_3.js --out-dir lib/task1.3 && node lib/task1.3/task1_3.js",
     "task2": "nodemon --exec babel-node task2/task2.ts --extensions \".ts\"",
-    "gen_tables": "babel-node create_users_table.ts --extensions \".ts\" && babel-node create_groups_table.ts --extensions \".ts\"",
+    "gen_tables": "babel-node scripts/create_users_table.ts --extensions \".ts\" && babel-node scripts/create_groups_table.ts --extensions \".ts\" &&  babel-node scripts/create_usergroup_table.ts --extensions \".ts\" ",
     "task3_nest": "copyfiles db.config.ts nest-app/src && cd ./nest-app && npm run start",
     "postinstall": "cd ./nest-app && npm i",
     "start": "nodemon --exec babel-node app/index.ts --extensions \".ts\""

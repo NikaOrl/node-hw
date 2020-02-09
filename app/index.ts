@@ -6,6 +6,7 @@ import groupRouter from './routers/group.router';
 import { UserModel } from './models/user.model';
 import { options } from '../db.config';
 import { GroupModel } from './models/group.model';
+import { UserGroupModel } from './models/user-group.model';
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -16,7 +17,7 @@ const sequelize = new Sequelize({
     timestamps: false
   }
 });
-sequelize.addModels([UserModel, GroupModel]);
+sequelize.addModels([UserModel, GroupModel, UserGroupModel]);
 
 sequelize.authenticate();
 

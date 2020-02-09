@@ -46,8 +46,10 @@ export default class GroupController {
 
   public static async deleteGroup(req: Request, res: Response) {
     try {
-      const deletedGroup = await GroupService.deleteGroup(req.params.id);
-      if (!deletedGroup)
+      const numberOfDeletedGroups = await GroupService.deleteGroup(
+        req.params.id
+      );
+      if (!numberOfDeletedGroups || numberOfDeletedGroups < 1)
         return res.status(404).json({ mesage: 'Group not found' });
       return res.status(200).json({ message: 'The group was deleted' });
     } catch (err) {

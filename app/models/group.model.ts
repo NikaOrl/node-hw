@@ -4,7 +4,6 @@ import {
   Model,
   Unique,
   PrimaryKey,
-  Default,
   DataType
 } from 'sequelize-typescript';
 import Joi from '@hapi/joi';

@@ -1,6 +1,7 @@
 import { v1 as uuid } from 'uuid';
 
 import { IGroup, GroupModel } from '../models/group.model';
+import { UserGroupModel } from '../models/user-group.model';
 
 export class GroupDAO {
   public static async getAllGroups(): Promise<GroupModel[]> {
@@ -42,10 +43,17 @@ export class GroupDAO {
   }
 
   public static async deleteGroup(id: string): Promise<number> {
-    return GroupModel.destroy({
-      where: {
-        id
-      }
-    }).then(numberOfGroups => numberOfGroups);
+    return Promise.all([
+      GroupModel.destroy({
+        where: {
+          id
+        }
+      }),
+      UserGroupModel.destroy({
+        where: {
+          groupId: id
+        }
+      })
+    ]).then(([numberOfGroups, numberOfLinks]) => numberOfGroups);
   }
 }

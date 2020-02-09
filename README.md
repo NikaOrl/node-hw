@@ -69,7 +69,8 @@ pg_db=# \list
  pg_db     | YOUR_USERNAME | UTF8     | C       | C     |
 ```
 
-6. Create the 'users' and the 'groups' table and generate data in it by
+6. Create the 'users', the 'groups' and the 'usergroup' tables and generate data
+   in it by
 
 ```shell
 npm run gen_tables
@@ -101,6 +102,19 @@ pg_db=# SELECT * FROM groups;
  ca2278d1-4b38-11ea-9d6c-e99a947f6918 | group2 | {WRITE,DELETE}
  ca2278d3-4b38-11ea-9d6c-e99a947f6918 | group4 | {WRITE,UPLOAD_FILES,DELETE}
  ca2278d2-4b38-11ea-9d6c-e99a947f6918 | group3 | {READ,SHARE}
+
+
+pg_db=# SELECT * FROM usergroup;
+                  id                  |                userId                |               groupId
+--------------------------------------+--------------------------------------+--------------------------------------
+ 3b908010-4b3f-11ea-9535-395fa2417949 | 02f85eb0-407e-11ea-b467-d7f6bf5cef68 | ca2278d0-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce30-4b3f-11ea-9535-395fa2417949 | 02f85eb1-407e-11ea-b467-d7f6bf5cef68 | ca2278d0-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce31-4b3f-11ea-9535-395fa2417949 | 02f85eb2-407e-11ea-b467-d7f6bf5cef68 | ca2278d0-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce32-4b3f-11ea-9535-395fa2417949 | 02f85eb0-407e-11ea-b467-d7f6bf5cef68 | ca2278d1-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce35-4b3f-11ea-9535-395fa2417949 | 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | ca2278d3-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce36-4b3f-11ea-9535-395fa2417949 | 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | a2278d2-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce34-4b3f-11ea-9535-395fa2417949 | 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | ca2278d1-4b38-11ea-9d6c-e99a947f6918
+ 3b90ce33-4b3f-11ea-9535-395fa2417949 | 02f85eb7-407e-11ea-b467-d7f6bf5cef68 | ca2278d1-4b38-11ea-9d6c-e99a947f6918
 ```
 
 ## Task 1
