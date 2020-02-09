@@ -69,15 +69,15 @@ pg_db=# \list
  pg_db     | YOUR_USERNAME | UTF8     | C       | C     |
 ```
 
-6. Create the 'users' table and generate data in it by
+6. Create the 'users' and the 'groups' table and generate data in it by
 
 ```shell
-npm run gen_table
+npm run gen_tables
 ```
 
-Now you have the table w/ all the test data. You can check it by the commands
-`\c pg_db` and `SELECT * FROM users;` in the terminal inside psql in the
-postgres database. You'll see sth like
+Now you have the tables w/ all the test data. You can check it by the commands
+`\c pg_db` and `SELECT * FROM users;` / `SELECT * FROM groups;`in the terminal
+inside psql in the postgres database. You'll see sth like
 
 ```shell
 pg_db=# SELECT * FROM users;
@@ -93,6 +93,14 @@ pg_db=# SELECT * FROM users;
  02f85eb7-407e-11ea-b467-d7f6bf5cef68 | kostya@stud.com | password |  20 | f
  02f85eb8-407e-11ea-b467-d7f6bf5cef68 | kolya@stud.com  | password |  20 | f
  02f85eb9-407e-11ea-b467-d7f6bf5cef68 | anton@stud.com  | password |  20 | f
+
+pg_db=# SELECT * FROM groups;
+                  id                  |  name  |         permissions
+--------------------------------------+--------+-----------------------------
+ ca2278d0-4b38-11ea-9d6c-e99a947f6918 | group1 | {READ}
+ ca2278d1-4b38-11ea-9d6c-e99a947f6918 | group2 | {WRITE,DELETE}
+ ca2278d3-4b38-11ea-9d6c-e99a947f6918 | group4 | {WRITE,UPLOAD_FILES,DELETE}
+ ca2278d2-4b38-11ea-9d6c-e99a947f6918 | group3 | {READ,SHARE}
 ```
 
 ## Task 1
@@ -167,13 +175,13 @@ validation use special packages like joi.
 
 There are two versions of task 3.
 
-- To start version ... pls use
+- To start version w/ express pls use
 
 ```shell
-npm run task3
+npm run start
 ```
 
-- To start version w/ nest framework pls use
+- To start version w/ nestJs framework pls use
 
 ```shell
 npm run task3_nest
@@ -202,3 +210,33 @@ following set of directories:
 - services/
 - data-access/
 - models/
+
+### TASK 4.1
+
+Add Groupentity to already existing REST service with CRUD operations:
+
+- TheGroup entity should have the following properties(you can use UUIDas Group
+  id)
+- The service should provide the following CRUDoperations for Group:
+
+  - get group by id;
+  - get all groups;
+  - create and update a group;
+  - remove group (hard delete–group data is fully removed from the DB).
+
+- Storing of groups data should be done in PostgreSQL in Groups table.
+- The service should follow the principles of 3-layer architecture.
+
+### TASK 4.2
+
+Link User records in one table with Group records in another table.
+
+- Add a UserGroup table(“many-to-many” relationship) which will store the data
+  describing which users are assigned to which group.
+- If any record gets removed from the DB, then all linked records should be
+  removed from UserGroupas well.
+
+### TASK 4.3
+
+Add addUsersToGroup(groupId, userIds) method which will allow adding users to a
+certain group. Use transactionsto save records in DB.

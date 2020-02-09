@@ -3,6 +3,7 @@ import { v1 as uuid } from 'uuid';
 
 import { Sequelize } from 'sequelize-typescript';
 import { User } from './nest-app/src/users/users.model';
+import { IUser } from './nest-app/dist/users/users.model';
 
 const sequelize = new Sequelize({
   host: options.connection.host,
@@ -36,7 +37,7 @@ sequelize
     sequelize.close();
   });
 
-const users = [
+const users: IUser[] = [
   {
     id: uuid(),
     login: 'ivan@stud.com',

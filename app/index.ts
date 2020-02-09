@@ -2,9 +2,10 @@ import express from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import userRouter from './routers/user.router';
-
+import groupRouter from './routers/group.router';
 import { UserModel } from './models/user.model';
 import { options } from '../db.config';
+import { GroupModel } from './models/group.model';
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -15,7 +16,7 @@ const sequelize = new Sequelize({
     timestamps: false
   }
 });
-sequelize.addModels([UserModel]);
+sequelize.addModels([UserModel, GroupModel]);
 
 sequelize.authenticate();
 
@@ -24,5 +25,6 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/users', userRouter);
+app.use('/groups', groupRouter);
 
 app.listen(port, (): void => console.log(`Server is started`));
