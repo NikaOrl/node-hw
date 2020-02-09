@@ -4,10 +4,14 @@ import {
   Model,
   Unique,
   PrimaryKey,
-  DataType
+  DataType,
+  ForeignKey
 } from 'sequelize-typescript';
 import Joi from '@hapi/joi';
 import { NextFunction, Response, Request } from 'express';
+
+import { UserModel } from './user.model';
+import { GroupModel } from './group.model';
 
 export interface IUserGroup {
   id: string;
@@ -22,9 +26,11 @@ export class UserGroupModel extends Model<UserGroupModel> {
   @Column(DataType.STRING)
   id: string | undefined;
 
+  @ForeignKey(() => UserModel)
   @Column(DataType.STRING)
   userId: string | undefined;
 
+  @ForeignKey(() => GroupModel)
   @Column(DataType.STRING)
   groupId: string | undefined;
 }

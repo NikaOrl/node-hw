@@ -17,6 +17,14 @@ export enum Permission {
   UploadFiles = 'UPLOAD_FILES'
 }
 
+export const ALLOWED_PERMISSIONS: Permission[] = [
+  Permission.Read,
+  Permission.Write,
+  Permission.Delete,
+  Permission.Share,
+  Permission.UploadFiles
+];
+
 export interface IGroup {
   id: string;
   name: string;
@@ -39,7 +47,9 @@ export class GroupModel extends Model<GroupModel> {
 
 const schema: Joi.ObjectSchema<IGroup> = Joi.object({
   name: Joi.string().required(),
-  permissions: Joi.array().required()
+  permissions: Joi.array()
+    .items(...ALLOWED_PERMISSIONS)
+    .required()
 });
 
 const validate = (schema: Joi.ObjectSchema<IGroup>) => {

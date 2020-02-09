@@ -8,7 +8,7 @@ import { options } from '../db.config';
 import { GroupModel } from './models/group.model';
 import { UserGroupModel } from './models/user-group.model';
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
   dialect: 'postgres',
   host: options.connection.host,
   username: options.connection.user,

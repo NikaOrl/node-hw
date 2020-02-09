@@ -1,5 +1,6 @@
 import { GroupDAO } from '../data-access/group.dao';
 import { GroupModel, IGroup } from '../models/group.model';
+import { UserGroupDAO } from '../data-access/usergroup.dao';
 
 export class GroupService {
   public static async getAllGroups(): Promise<GroupModel[]> {
@@ -20,5 +21,9 @@ export class GroupService {
 
   public static async deleteGroup(id: string) {
     return await GroupDAO.deleteGroup(id);
+  }
+
+  public static async addUsersToGroup(groupId: string, userIds: string[]) {
+    return await UserGroupDAO.addUsersToGroup(groupId, userIds);
   }
 }

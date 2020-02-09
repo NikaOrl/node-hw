@@ -56,4 +56,19 @@ export default class GroupController {
       res.status(500).json({ error: err.message });
     }
   }
+
+  public static async addUsersToGroup(req: Request, res: Response) {
+    try {
+      const a = await GroupService.addUsersToGroup(
+        req.params.id,
+        req.body.userIds
+      );
+      if (!a) return res.status(404).json({ mesage: 'Group not found' });
+      return res
+        .status(200)
+        .json({ message: 'The users was added to the group' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
 }

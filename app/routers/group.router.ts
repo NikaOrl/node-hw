@@ -9,5 +9,6 @@ groupRouter.get('/:id', GroupController.getGroupById);
 groupRouter.post('/', validateGroup, GroupController.addGroup);
 groupRouter.put('/:id', validateGroup, GroupController.updateGroup);
 groupRouter.delete('/:id', GroupController.deleteGroup);
+groupRouter.post('/:id/addUsers', GroupController.addUsersToGroup);
 
 export default groupRouter;
