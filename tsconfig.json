@@ -6,7 +6,10 @@
     "noEmit": true,
     "strict": true,
     "isolatedModules": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "es5"
   },
   "exclude": ["node_modules", "task1"]
 }
