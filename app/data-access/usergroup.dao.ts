@@ -4,7 +4,7 @@ import { v1 as uuid } from 'uuid';
 import { GroupModel } from '../models/group.model';
 import { UserModel } from '../models/user.model';
 import { UserGroupModel } from '../models/user-group.model';
-import { sequelize } from '..';
+import { sequelize } from '../config/config';
 
 export class UserGroupDAO {
   public static async addUsersToGroup(groupId: string, userIds: string[]) {

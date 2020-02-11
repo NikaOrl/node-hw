@@ -6,8 +6,6 @@ import {
   PrimaryKey,
   DataType
 } from 'sequelize-typescript';
-import Joi from '@hapi/joi';
-import { NextFunction, Response, Request } from 'express';
 
 export enum Permission {
   Read = 'READ',
@@ -16,14 +14,6 @@ export enum Permission {
   Share = 'SHARE',
   UploadFiles = 'UPLOAD_FILES'
 }
-
-export const ALLOWED_PERMISSIONS: Permission[] = [
-  Permission.Read,
-  Permission.Write,
-  Permission.Delete,
-  Permission.Share,
-  Permission.UploadFiles
-];
 
 export interface IGroup {
   id: string;
@@ -44,24 +34,3 @@ export class GroupModel extends Model<GroupModel> {
   @Column(DataType.ARRAY(DataType.STRING))
   permissions: Array<Permission> | undefined;
 }
-
-const schema: Joi.ObjectSchema<IGroup> = Joi.object({
-  name: Joi.string().required(),
-  permissions: Joi.array()
-    .items(...ALLOWED_PERMISSIONS)
-    .required()
-});
-
-const validate = (schema: Joi.ObjectSchema<IGroup>) => {
-  return (req: Request, res: Response, next: NextFunction): boolean | void => {
-    const { error } = schema.validate(req.body);
-
-    if (error && error.isJoi) {
-      res.status(400).json(error.message);
-      return false;
-    }
-    next();
-  };
-};
-
-export const validateGroup = validate(schema);

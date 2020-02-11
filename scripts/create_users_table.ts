@@ -1,30 +1,16 @@
-import { options } from '../db.config';
-
-import { Sequelize } from 'sequelize-typescript';
-import { User } from '../nest-app/src/users/users.model';
-import { IUser } from '../nest-app/dist/users/users.model';
-
-const sequelize = new Sequelize({
-  host: options.connection.host,
-  database: options.connection.database,
-  username: options.connection.user,
-  dialect: 'postgres',
-  models: [User],
-  define: {
-    timestamps: false
-  }
-});
+import { sequelize } from '../app/config/config';
+import { UserModel, IUser } from '../app/models/user.model';
 
 sequelize
   .authenticate()
   .then(() => {
-    return User.sync({ force: true });
+    return UserModel.sync({ force: true });
   })
   .then(() => {
     console.log('Connection established successfully.');
     Promise.all(
       users.map(userData => {
-        const user = new User(userData);
+        const user = new UserModel(userData);
         return user.save();
       })
     ).then(() => {

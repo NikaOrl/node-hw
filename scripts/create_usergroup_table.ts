@@ -1,19 +1,7 @@
-import { options } from '../db.config';
 import { v1 as uuid } from 'uuid';
-import { Sequelize } from 'sequelize-typescript';
 
 import { UserGroupModel, IUserGroup } from '../app/models/user-group.model';
-
-const sequelize = new Sequelize({
-  host: options.connection.host,
-  database: options.connection.database,
-  username: options.connection.user,
-  dialect: 'postgres',
-  models: [UserGroupModel],
-  define: {
-    timestamps: false
-  }
-});
+import { sequelize } from '../app/config/config';
 
 sequelize
   .authenticate()

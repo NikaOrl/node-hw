@@ -1,7 +1,9 @@
 import { v1 as uuid } from 'uuid';
+import { Transaction } from 'sequelize';
 
 import { IGroup, GroupModel } from '../models/group.model';
 import { UserGroupModel } from '../models/user-group.model';
+import { sequelize } from '../config/config';
 
 export class GroupDAO {
   public static async getAllGroups(): Promise<GroupModel[]> {
@@ -43,17 +45,19 @@ export class GroupDAO {
   }
 
   public static async deleteGroup(id: string): Promise<number> {
-    return Promise.all([
-      GroupModel.destroy({
-        where: {
-          id
-        }
-      }),
-      UserGroupModel.destroy({
-        where: {
-          groupId: id
-        }
-      })
-    ]).then(([numberOfGroups, numberOfLinks]) => numberOfGroups);
+    return sequelize.transaction(async (t: Transaction) => {
+      return Promise.all([
+        GroupModel.destroy({
+          where: {
+            id
+          }
+        }),
+        UserGroupModel.destroy({
+          where: {
+            groupId: id
+          }
+        })
+      ]).then(([numberOfGroups, numberOfLinks]) => numberOfGroups);
+    });
   }
 }
