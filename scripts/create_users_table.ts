@@ -1,30 +1,16 @@
-import { options } from './db.config';
-import { v1 as uuid } from 'uuid';
-
-import { Sequelize } from 'sequelize-typescript';
-import { User } from './nest-app/src/users/users.model';
-
-const sequelize = new Sequelize({
-  host: options.connection.host,
-  database: options.connection.database,
-  username: options.connection.user,
-  dialect: 'postgres',
-  models: [User],
-  define: {
-    timestamps: false
-  }
-});
+import { sequelize } from '../app/config/config';
+import { UserModel, IUser } from '../app/models/user.model';
 
 sequelize
   .authenticate()
   .then(() => {
-    return User.sync({ force: true });
+    return UserModel.sync({ force: true });
   })
   .then(() => {
     console.log('Connection established successfully.');
     Promise.all(
       users.map(userData => {
-        const user = new User(userData);
+        const user = new UserModel(userData);
         return user.save();
       })
     ).then(() => {
@@ -36,72 +22,72 @@ sequelize
     sequelize.close();
   });
 
-const users = [
+const users: IUser[] = [
   {
-    id: uuid(),
+    id: '2f85eb0-407e-11ea-b467-d7f6bf5cef68',
     login: 'ivan@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb1-407e-11ea-b467-d7f6bf5cef68',
     login: 'petr@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '2f85eb2-407e-11ea-b467-d7f6bf5cef68',
     login: 'vasia@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb3-407e-11ea-b467-d7f6bf5cef68',
     login: 'serg@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb4-407e-11ea-b467-d7f6bf5cef68',
     login: 'tolya@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '2f85eb5-407e-11ea-b467-d7f6bf5cef68',
     login: 'andrei@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb6-407e-11ea-b467-d7f6bf5cef68',
     login: 'sachar@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb7-407e-11ea-b467-d7f6bf5cef68',
     login: 'kostya@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb8-407e-11ea-b467-d7f6bf5cef68',
     login: 'kolya@stud.com',
     password: 'password',
     age: 20,
     isDeleted: false
   },
   {
-    id: uuid(),
+    id: '02f85eb9-407e-11ea-b467-d7f6bf5cef68',
     login: 'anton@stud.com',
     password: 'password',
     age: 20,

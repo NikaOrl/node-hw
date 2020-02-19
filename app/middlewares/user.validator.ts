@@ -1,48 +1,7 @@
-import {
-  Table,
-  Column,
-  Model,
-  Unique,
-  PrimaryKey,
-  Default,
-  DataType
-} from 'sequelize-typescript';
 import Joi from '@hapi/joi';
 import { NextFunction, Response, Request } from 'express';
 
-export interface IUser {
-  id: string;
-  login: string;
-  password: string;
-  age: number;
-  isDeleted: boolean;
-}
-
-export interface IUserSearch {
-  loginSubstring: string;
-  limit: number;
-}
-
-@Table({ tableName: 'users' })
-export class UserModel extends Model<UserModel> {
-  @PrimaryKey
-  @Unique
-  @Column(DataType.STRING)
-  id: string | undefined;
-
-  @Column(DataType.STRING)
-  login: string | undefined;
-
-  @Column(DataType.STRING)
-  password: string | undefined;
-
-  @Column(DataType.INTEGER)
-  age: number | undefined;
-
-  @Default(false)
-  @Column(DataType.BOOLEAN)
-  isDeleted: boolean | undefined;
-}
+import { IUser } from '../models/user.model';
 
 const schema: Joi.ObjectSchema<IUser> = Joi.object({
   login: Joi.string().required(),
