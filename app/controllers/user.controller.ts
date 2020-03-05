@@ -1,7 +1,9 @@
 import { UserService } from '../services/user.service';
 import { Request, Response } from 'express';
+import { ControllerLogger } from '../utils/logger';
 
 export default class UserController {
+  @ControllerLogger()
   public static async getUserById(req: Request, res: Response) {
     try {
       const user = await UserService.getUserById(req.params.id);
@@ -13,6 +15,7 @@ export default class UserController {
     }
   }
 
+  @ControllerLogger()
   public static async addUser(req: Request, res: Response) {
     const user = req.body;
     try {
@@ -24,6 +27,7 @@ export default class UserController {
     }
   }
 
+  @ControllerLogger()
   public static async updateUser(req: Request, res: Response) {
     const updatedUser = req.body;
     try {
@@ -35,6 +39,7 @@ export default class UserController {
     }
   }
 
+  @ControllerLogger()
   public static async getAllUsers(req: Request, res: Response) {
     try {
       const { loginSubstring = '', limit = 10 } = req.query;
@@ -45,6 +50,7 @@ export default class UserController {
     }
   }
 
+  @ControllerLogger()
   public static async deleteUser(req: Request, res: Response) {
     try {
       const deletedUser = await UserService.deleteUser(req.params.id);
