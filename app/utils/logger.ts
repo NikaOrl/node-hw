@@ -1,4 +1,5 @@
 import * as winston from 'winston';
+import { NextFunction, Request, Response } from 'express';
 
 export const uncaughtExceptionLogger = winston.createLogger({
   level: 'error',
@@ -52,4 +53,31 @@ export function ControllerLogger() {
 
     return descriptor;
   };
+}
+
+const routeDebugLogger = winston.createLogger({
+  level: 'debug',
+  format: winston.format.json(),
+  defaultMeta: { service: 'Route logger' },
+  transports: [
+    new winston.transports.Console({ format: winston.format.json() })
+  ]
+});
+
+export function routeDebug(req: Request, res: Response, next: NextFunction) {
+  const {
+    method,
+    params,
+    body,
+    route: { path },
+    baseUrl
+  } = req;
+  routeDebugLogger.debug('Route debug logger', {
+    baseUrl,
+    path,
+    method,
+    params,
+    body
+  });
+  next();
 }
