@@ -9,9 +9,10 @@ export default class GroupController {
       const Group = await GroupService.getGroupById(req.params.id);
       Group
         ? res.status(200).json(Group)
-        : res.status(404).json({ mesage: 'Group not found' });
+        : res.status(404).json({ message: 'Group not found' });
     } catch (err) {
-      res.status(500).json({ mesage: err.mesage });
+      res.status(500).json({ message: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -23,7 +24,8 @@ export default class GroupController {
       res.location(`/Groups/${addedGroup.id}`);
       return res.status(201).json(addedGroup);
     } catch (err) {
-      res.status(500).json({ mesage: err.mesage });
+      res.status(500).json({ message: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -32,10 +34,11 @@ export default class GroupController {
     const updatedGroup = req.body;
     try {
       const Group = await GroupService.updateGroup(updatedGroup, req.params.id);
-      if (!Group) return res.status(404).json({ mesage: 'Group not found' });
+      if (!Group) return res.status(404).json({ message: 'Group not found' });
       return res.status(200).json(Group);
     } catch (err) {
-      res.status(500).json({ mesage: err.mesage });
+      res.status(500).json({ message: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -46,6 +49,7 @@ export default class GroupController {
       return res.status(200).json(Groups);
     } catch (err) {
       res.status(500).json({ error: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -56,10 +60,11 @@ export default class GroupController {
         req.params.id
       );
       if (!numberOfDeletedGroups || numberOfDeletedGroups < 1)
-        return res.status(404).json({ mesage: 'Group not found' });
+        return res.status(404).json({ message: 'Group not found' });
       return res.status(200).json({ message: 'The group was deleted' });
     } catch (err) {
       res.status(500).json({ error: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -70,12 +75,13 @@ export default class GroupController {
         req.params.id,
         req.body.userIds
       );
-      if (!a) return res.status(404).json({ mesage: 'Group not found' });
+      if (!a) return res.status(404).json({ message: 'Group not found' });
       return res
         .status(200)
         .json({ message: 'The users was added to the group' });
     } catch (err) {
       res.status(500).json({ error: err.message });
+      throw Error(err.message);
     }
   }
 }

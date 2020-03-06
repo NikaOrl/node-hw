@@ -9,9 +9,10 @@ export default class UserController {
       const user = await UserService.getUserById(req.params.id);
       user
         ? res.status(200).json(user)
-        : res.status(404).json({ mesage: 'User not found' });
+        : res.status(404).json({ message: 'User not found' });
     } catch (err) {
-      res.status(500).json({ mesage: err.mesage });
+      res.status(500).json({ message: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -23,7 +24,8 @@ export default class UserController {
       res.location(`/users/${addedUser.id}`);
       return res.status(201).json(addedUser);
     } catch (err) {
-      res.status(500).json({ mesage: err.mesage });
+      res.status(500).json({ message: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -32,10 +34,11 @@ export default class UserController {
     const updatedUser = req.body;
     try {
       const user = await UserService.updateUser(updatedUser, req.params.id);
-      if (!user) return res.status(404).json({ mesage: 'User not found' });
+      if (!user) return res.status(404).json({ message: 'User not found' });
       return res.status(200).json(user);
     } catch (err) {
-      res.status(500).json({ mesage: err.mesage });
+      res.status(500).json({ message: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -47,6 +50,7 @@ export default class UserController {
       return res.status(200).json(users);
     } catch (err) {
       res.status(500).json({ error: err.message });
+      throw Error(err.message);
     }
   }
 
@@ -55,10 +59,11 @@ export default class UserController {
     try {
       const deletedUser = await UserService.deleteUser(req.params.id);
       if (!deletedUser)
-        return res.status(404).json({ mesage: 'User not found' });
+        return res.status(404).json({ message: 'User not found' });
       return res.status(200).json(deletedUser);
     } catch (err) {
       res.status(500).json({ error: err.message });
+      throw Error(err.message);
     }
   }
 }
