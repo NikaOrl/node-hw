@@ -35,6 +35,15 @@ const winstonControllerLogger = winston.createLogger({
   ]
 });
 
+const winstonMethodsLogger = winston.createLogger({
+  level: 'debug',
+  format: winston.format.json(),
+  defaultMeta: { service: 'Route logger' },
+  transports: [
+    new winston.transports.Console({ format: winston.format.json() })
+  ]
+});
+
 export function ControllerLogger() {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value;
@@ -55,16 +64,7 @@ export function ControllerLogger() {
   };
 }
 
-const routeDebugLogger = winston.createLogger({
-  level: 'debug',
-  format: winston.format.json(),
-  defaultMeta: { service: 'Route logger' },
-  transports: [
-    new winston.transports.Console({ format: winston.format.json() })
-  ]
-});
-
-export function routeDebug(req: Request, res: Response, next: NextFunction) {
+export function methodsLogger(req: Request, res: Response, next: NextFunction) {
   const {
     method,
     params,
@@ -72,7 +72,7 @@ export function routeDebug(req: Request, res: Response, next: NextFunction) {
     route: { path },
     baseUrl
   } = req;
-  routeDebugLogger.debug('Route debug logger', {
+  winstonMethodsLogger.debug('Service methods logger', {
     baseUrl,
     path,
     method,
