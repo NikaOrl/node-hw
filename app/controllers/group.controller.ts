@@ -8,14 +8,14 @@ export default class GroupController {
   @ControllerLogger()
   public static async getGroupById(req: Request, res: Response): Promise<void> {
     try {
-      const Group: GroupModel | null = await GroupService.getGroupById(
+      const group: GroupModel | null = await GroupService.getGroupById(
         req.params.id
       );
-      if (!Group) {
+      if (!group) {
         res.status(404).json({ message: 'Group not found' });
         return;
       }
-      res.status(200).json(Group);
+      res.status(200).json(group);
     } catch (err) {
       res.status(500).json({ message: err.message });
       throw Error(err.message);
@@ -39,15 +39,15 @@ export default class GroupController {
   public static async updateGroup(req: Request, res: Response): Promise<void> {
     const updatedGroup: GroupModel = req.body;
     try {
-      const Group: GroupModel = await GroupService.updateGroup(
+      const group: GroupModel = await GroupService.updateGroup(
         updatedGroup,
         req.params.id
       );
-      if (!Group) {
+      if (!group) {
         res.status(404).json({ message: 'Group not found' });
         return;
       }
-      res.status(200).json(Group);
+      res.status(200).json(group);
     } catch (err) {
       res.status(500).json({ message: err.message });
       throw Error(err.message);
@@ -57,8 +57,8 @@ export default class GroupController {
   @ControllerLogger()
   public static async getAllGroups(req: Request, res: Response): Promise<void> {
     try {
-      const Groups: GroupModel[] = await GroupService.getAllGroups();
-      res.status(200).json(Groups);
+      const groups: GroupModel[] = await GroupService.getAllGroups();
+      res.status(200).json(groups);
     } catch (err) {
       res.status(500).json({ error: err.message });
       throw Error(err.message);
