@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import userRouter from './routers/user.router';
 import groupRouter from './routers/group.router';
@@ -13,12 +14,17 @@ dotenv.config();
 
 const app: express.Application = express();
 const port: string | number = process.env.PORT || 3000;
+const corsOptions: cors.CorsOptions = {
+  methods: 'GET,PUT,POST,DELETE',
+  origin: '*'
+};
 
 sequelize.authenticate();
 
 app.use(express.json());
 app.use('/users', userRouter);
 app.use('/groups', groupRouter);
+app.use(cors(corsOptions));
 
 process.on('uncaughtException', (err: Error) => {
   uncaughtExceptionLogger.error(
