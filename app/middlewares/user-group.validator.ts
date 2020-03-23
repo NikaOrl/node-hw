@@ -8,9 +8,15 @@ const schema: Joi.ObjectSchema<IUserGroup> = Joi.object({
   groupId: Joi.string().required()
 });
 
-const validate = (schema: Joi.ObjectSchema<IUserGroup>) => {
+const validate: (
+  objectSchema: Joi.ObjectSchema<IUserGroup>
+) => (
+  req: Request<any>,
+  res: Response,
+  next: NextFunction
+) => boolean | void = (objectSchema: Joi.ObjectSchema<IUserGroup>) => {
   return (req: Request, res: Response, next: NextFunction): boolean | void => {
-    const { error } = schema.validate(req.body);
+    const { error } = objectSchema.validate(req.body);
 
     if (error && error.isJoi) {
       res.status(400).json(error.message);
@@ -20,4 +26,8 @@ const validate = (schema: Joi.ObjectSchema<IUserGroup>) => {
   };
 };
 
-export const validateUserGroup = validate(schema);
+export const validateUserGroup: (
+  req: Request<any>,
+  res: Response,
+  next: NextFunction
+) => boolean | void = validate(schema);

@@ -7,30 +7,34 @@ import { UserGroupModel } from '../models/user-group.model';
 import { sequelize } from '../config/config';
 
 export class UserGroupDAO {
-  public static async addUsersToGroup(groupId: string, userIds: string[]) {
+  public static async addUsersToGroup(
+    groupId: string,
+    userIds: string[]
+  ): Promise<UserGroupModel[] | Error> {
     return sequelize.transaction(async (t: Transaction) => {
-      const groupRecord = await GroupModel.findByPk(groupId, {
-        transaction: t,
-        raw: true
-      });
-      const userRecords = await UserModel.findAll({
+      const groupRecord: GroupModel | null = await GroupModel.findByPk(
+        groupId,
+        {
+          transaction: t,
+          raw: true
+        }
+      );
+      const userRecords: UserModel[] = await UserModel.findAll({
         where: { id: userIds },
         transaction: t,
         raw: true
       });
       if (groupRecord) {
         return Promise.all(
-          userRecords.map(user => {
-            console.log(user);
+          userRecords.map((user: UserModel) => {
             return UserGroupModel.create(
               { id: uuid(), userId: user.id, groupId: groupRecord.id },
               { transaction: t }
             );
           })
         );
-      } else {
-        return Error('Group was not found');
       }
+      return Error('Group was not found');
     });
   }
 }

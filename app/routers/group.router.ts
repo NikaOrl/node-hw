@@ -1,24 +1,33 @@
-import express from 'express';
+import express, { Router } from 'express';
 import GroupController from '../controllers/group.controller';
 import { validateGroup } from '../middlewares/group.validator';
 import { validateUserGroup } from '../middlewares/user-group.validator';
 import { methodsLogger } from '../utils/logger';
+import { auth } from '../middlewares/auth';
 
-const groupRouter = express.Router();
+const groupRouter: Router = express.Router();
 
-groupRouter.get('/', methodsLogger, GroupController.getAllGroups);
-groupRouter.get('/:id', methodsLogger, GroupController.getGroupById);
-groupRouter.post('/', methodsLogger, validateGroup, GroupController.addGroup);
+groupRouter.get('/', methodsLogger, auth, GroupController.getAllGroups);
+groupRouter.get('/:id', methodsLogger, auth, GroupController.getGroupById);
+groupRouter.post(
+  '/',
+  methodsLogger,
+  auth,
+  validateGroup,
+  GroupController.addGroup
+);
 groupRouter.put(
   '/:id',
   methodsLogger,
+  auth,
   validateGroup,
   GroupController.updateGroup
 );
-groupRouter.delete('/:id', methodsLogger, GroupController.deleteGroup);
+groupRouter.delete('/:id', methodsLogger, auth, GroupController.deleteGroup);
 groupRouter.post(
   '/:id/addUsers',
   methodsLogger,
+  auth,
   validateUserGroup,
   GroupController.addUsersToGroup
 );

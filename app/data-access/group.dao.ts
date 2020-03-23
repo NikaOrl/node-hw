@@ -1,5 +1,4 @@
 import { v1 as uuid } from 'uuid';
-import { Transaction } from 'sequelize';
 
 import { IGroup, GroupModel } from '../models/group.model';
 import { UserGroupModel } from '../models/user-group.model';
@@ -41,11 +40,11 @@ export class GroupDAO {
         },
         returning: true
       }
-    ).then(([rowsUpdated, [group]]) => group);
+    ).then(([, [group]]: [number, GroupModel[]]) => group);
   }
 
   public static async deleteGroup(id: string): Promise<number> {
-    return sequelize.transaction(async (t: Transaction) => {
+    return sequelize.transaction(async () => {
       return Promise.all([
         GroupModel.destroy({
           where: {
@@ -57,7 +56,7 @@ export class GroupDAO {
             groupId: id
           }
         })
-      ]).then(([numberOfGroups, numberOfLinks]) => numberOfGroups);
+      ]).then(([numberOfGroups]: [number, number]) => numberOfGroups);
     });
   }
 }

@@ -1,27 +1,6 @@
 import { GroupModel, IGroup, Permission } from '../app/models/group.model';
 import { sequelize } from '../app/config/config';
 
-sequelize
-  .authenticate()
-  .then(() => {
-    return GroupModel.sync({ force: true });
-  })
-  .then(() => {
-    console.log('Connection established successfully.');
-    Promise.all(
-      groups.map(groupData => {
-        const group = new GroupModel(groupData);
-        return group.save();
-      })
-    ).then(() => {
-      sequelize.close();
-    });
-  })
-  .catch((err: Error) => {
-    console.error('Unable to connect to the database:', err);
-    sequelize.close();
-  });
-
 const groups: IGroup[] = [
   {
     id: 'ca2278d0-4b38-11ea-9d6c-e99a947f6918',
@@ -44,3 +23,24 @@ const groups: IGroup[] = [
     permissions: [Permission.Write, Permission.UploadFiles, Permission.Delete]
   }
 ];
+
+sequelize
+  .authenticate()
+  .then(() => {
+    return GroupModel.sync({ force: true });
+  })
+  .then(() => {
+    console.log('Connection established successfully.');
+    Promise.all(
+      groups.map((groupData: IGroup) => {
+        const group: GroupModel = new GroupModel(groupData);
+        return group.save();
+      })
+    ).then(() => {
+      sequelize.close();
+    });
+  })
+  .catch((err: Error) => {
+    console.error('Unable to connect to the database:', err);
+    sequelize.close();
+  });

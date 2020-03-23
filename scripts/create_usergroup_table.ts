@@ -3,27 +3,6 @@ import { v1 as uuid } from 'uuid';
 import { UserGroupModel, IUserGroup } from '../app/models/user-group.model';
 import { sequelize } from '../app/config/config';
 
-sequelize
-  .authenticate()
-  .then(() => {
-    return UserGroupModel.sync({ force: true });
-  })
-  .then(() => {
-    console.log('Connection established successfully.');
-    Promise.all(
-      usergroups.map(usergroupData => {
-        const user = new UserGroupModel(usergroupData);
-        return user.save();
-      })
-    ).then(() => {
-      sequelize.close();
-    });
-  })
-  .catch((err: Error) => {
-    console.error('Unable to connect to the database:', err);
-    sequelize.close();
-  });
-
 const usergroups: IUserGroup[] = [
   {
     id: uuid(),
@@ -66,3 +45,24 @@ const usergroups: IUserGroup[] = [
     groupId: 'a2278d2-4b38-11ea-9d6c-e99a947f6918'
   }
 ];
+
+sequelize
+  .authenticate()
+  .then(() => {
+    return UserGroupModel.sync({ force: true });
+  })
+  .then(() => {
+    console.log('Connection established successfully.');
+    Promise.all(
+      usergroups.map((usergroupData: IUserGroup) => {
+        const user: UserGroupModel = new UserGroupModel(usergroupData);
+        return user.save();
+      })
+    ).then(() => {
+      sequelize.close();
+    });
+  })
+  .catch((err: Error) => {
+    console.error('Unable to connect to the database:', err);
+    sequelize.close();
+  });

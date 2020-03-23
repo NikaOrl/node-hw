@@ -14,6 +14,7 @@ export interface IUser {
   password: string;
   age: number;
   isDeleted: boolean;
+  token: string | null;
 }
 
 export interface IUserSearch {
@@ -40,4 +41,8 @@ export class UserModel extends Model<UserModel> {
   @Default(false)
   @Column(DataType.BOOLEAN)
   isDeleted: boolean | undefined;
+
+  @Default(null)
+  @Column(DataType.STRING)
+  token: string | undefined | null;
 }

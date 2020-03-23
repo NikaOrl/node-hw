@@ -5,7 +5,7 @@ import { options } from '../../db.config';
 import { GroupModel } from '../models/group.model';
 import { UserGroupModel } from '../models/user-group.model';
 
-export const sequelize = new Sequelize({
+export const sequelize: Sequelize = new Sequelize({
   dialect: 'postgres',
   host: options.connection.host,
   username: options.connection.user,

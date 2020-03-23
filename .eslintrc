@@ -40,6 +40,19 @@
         "variableDeclaration": true
       }
     ],
+    "@typescript-eslint/interface-name-prefix": [
+      "error",
+      {
+        "prefixWithI": "always"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "off",
+      {
+        "fixToUnknown": true,
+        "ignoreRestArgs": true
+      }
+    ],
     "no-debugger": 1,
     // Possible errors
     "comma-dangle": [2, "never"],
