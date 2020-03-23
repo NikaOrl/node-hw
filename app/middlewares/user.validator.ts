@@ -15,9 +15,15 @@ const schema: Joi.ObjectSchema<IUser> = Joi.object({
     .required()
 });
 
-const validate = (schema: Joi.ObjectSchema<IUser>) => {
+const validate: (
+  objectSchema: Joi.ObjectSchema<IUser>
+) => (
+  req: Request<any>,
+  res: Response,
+  next: NextFunction
+) => boolean | void = (objectSchema: Joi.ObjectSchema<IUser>) => {
   return (req: Request, res: Response, next: NextFunction): boolean | void => {
-    const { error } = schema.validate(req.body);
+    const { error } = objectSchema.validate(req.body);
 
     if (error && error.isJoi) {
       res.status(400).json(error.message);
@@ -27,4 +33,8 @@ const validate = (schema: Joi.ObjectSchema<IUser>) => {
   };
 };
 
-export const validateUser = validate(schema);
+export const validateUser: (
+  req: Request<any>,
+  res: Response,
+  next: NextFunction
+) => boolean | void = validate(schema);

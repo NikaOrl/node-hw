@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import { NextFunction, Request, Response } from 'express';
 
-export const uncaughtExceptionLogger = winston.createLogger({
+export const uncaughtExceptionLogger: winston.Logger = winston.createLogger({
   level: 'error',
   format: winston.format.json(),
   defaultMeta: { service: 'Application uncaught exception logger' },
@@ -12,7 +12,7 @@ export const uncaughtExceptionLogger = winston.createLogger({
   ]
 });
 
-export const uncaughtRejectionLogger = winston.createLogger({
+export const uncaughtRejectionLogger: winston.Logger = winston.createLogger({
   level: 'error',
   format: winston.format.json(),
   defaultMeta: { service: 'Application uncaught rejection logger' },
@@ -23,7 +23,7 @@ export const uncaughtRejectionLogger = winston.createLogger({
   ]
 });
 
-const winstonControllerLogger = winston.createLogger({
+const winstonControllerLogger: winston.Logger = winston.createLogger({
   level: 'error',
   format: winston.format.json(),
   defaultMeta: { service: 'Controller logger' },
@@ -35,7 +35,7 @@ const winstonControllerLogger = winston.createLogger({
   ]
 });
 
-const winstonMethodsLogger = winston.createLogger({
+const winstonMethodsLogger: winston.Logger = winston.createLogger({
   level: 'debug',
   format: winston.format.json(),
   defaultMeta: { service: 'Route logger' },
@@ -45,9 +45,13 @@ const winstonMethodsLogger = winston.createLogger({
 });
 
 export function ControllerLogger() {
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value;
-    descriptor.value = async (...args: any) => {
+  return (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ): PropertyDescriptor => {
+    const originalMethod: any = descriptor.value;
+    descriptor.value = async (...args: any): Promise<void> => {
       try {
         await originalMethod.apply(this, args);
       } catch (e) {
@@ -64,7 +68,11 @@ export function ControllerLogger() {
   };
 }
 
-export function methodsLogger(req: Request, res: Response, next: NextFunction) {
+export function methodsLogger(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
   const {
     method,
     params,

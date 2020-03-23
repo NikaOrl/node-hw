@@ -14,7 +14,7 @@ export class UserDAO {
         login: Sequelize.where(
           Sequelize.fn('LOWER', Sequelize.col('login')),
           'LIKE',
-          '%' + loginSubstring + '%'
+          `%${loginSubstring}%`
         )
       },
       attributes: { exclude: ['password'] },
@@ -33,19 +33,25 @@ export class UserDAO {
   }
 
   public static async addUser(user: IUser): Promise<UserModel> {
-    return UserModel.create({ ...user, id: uuid(), isDeleted: false });
+    return UserModel.create({
+      ...user,
+      id: uuid(),
+      isDeleted: false,
+      token: null
+    });
   }
 
   public static async updateUser(
     updatedUser: UserModel,
     id: string
   ): Promise<UserModel> {
-    const { login, password, age } = updatedUser;
+    const { login, password, age, token } = updatedUser;
     return UserModel.update(
       {
         login,
         password,
-        age
+        age,
+        token
       },
       {
         where: {
@@ -54,7 +60,7 @@ export class UserDAO {
         },
         returning: true
       }
-    ).then(([rowsUpdated, [user]]) => user);
+    ).then(([, [user]]: [number, UserModel[]]) => user);
   }
 
   public static async deleteUser(id: string): Promise<UserModel | null> {
@@ -69,6 +75,10 @@ export class UserDAO {
         },
         returning: true
       }
-    ).then(([rowsUpdated, [user]]) => user);
+    ).then(([, [user]]: [number, UserModel[]]) => user);
+  }
+
+  public static async findByLogin(login: string): Promise<UserModel | null> {
+    return UserModel.findOne({ raw: true, where: { login } });
   }
 }

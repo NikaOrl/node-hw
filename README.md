@@ -73,27 +73,34 @@ pg_db=# \list
    in it by
 
 ```shell
-npm run gen_tables
+npm run db:seed
 ```
 
 Now you have the tables w/ all the test data. You can check it by the commands
-`\c pg_db` and `SELECT * FROM users;` / `SELECT * FROM groups;`in the terminal
-inside psql in the postgres database. You'll see sth like
+
+```shell
+\c pg_db
+```
+
+and `SELECT * FROM users;` / `SELECT * FROM groups;` /
+`SELECT * FROM usergroup;` in the terminal inside psql in the postgres database.
+You'll see sth like
 
 ```shell
 pg_db=# SELECT * FROM users;
-                  id                  |      login      | password | age | isDeleted
---------------------------------------+-----------------+----------+-----+-----------
- 02f85eb0-407e-11ea-b467-d7f6bf5cef68 | ivan@stud.com   | password |  20 | f
- 02f85eb1-407e-11ea-b467-d7f6bf5cef68 | petr@stud.com   | password |  20 | f
- 02f85eb2-407e-11ea-b467-d7f6bf5cef68 | vasia@stud.com  | password |  20 | f
- 02f85eb3-407e-11ea-b467-d7f6bf5cef68 | serg@stud.com   | password |  20 | f
- 02f85eb4-407e-11ea-b467-d7f6bf5cef68 | tolya@stud.com  | password |  20 | f
- 02f85eb5-407e-11ea-b467-d7f6bf5cef68 | andrei@stud.com | password |  20 | f
- 02f85eb6-407e-11ea-b467-d7f6bf5cef68 | sachar@stud.com | password |  20 | f
- 02f85eb7-407e-11ea-b467-d7f6bf5cef68 | kostya@stud.com | password |  20 | f
- 02f85eb8-407e-11ea-b467-d7f6bf5cef68 | kolya@stud.com  | password |  20 | f
- 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | anton@stud.com  | password |  20 | f
+                  id                  |      login      | password | age | isDeleted | token
+--------------------------------------+-----------------+----------+-----+-----------+-------
+ 2f85eb0-407e-11ea-b467-d7f6bf5cef68  | ivan@stud.com   | password |  20 | f         |
+ 2f85eb5-407e-11ea-b467-d7f6bf5cef68  | andrei@stud.com | password |  20 | f         |
+ 02f85eb6-407e-11ea-b467-d7f6bf5cef68 | sachar@stud.com | password |  20 | f         |
+ 02f85eb4-407e-11ea-b467-d7f6bf5cef68 | tolya@stud.com  | password |  20 | f         |
+ 02f85eb3-407e-11ea-b467-d7f6bf5cef68 | serg@stud.com   | password |  20 | f         |
+ 02f85eb7-407e-11ea-b467-d7f6bf5cef68 | kostya@stud.com | password |  20 | f         |
+ 02f85eb1-407e-11ea-b467-d7f6bf5cef68 | petr@stud.com   | password |  20 | f         |
+ 02f85eb8-407e-11ea-b467-d7f6bf5cef68 | kolya@stud.com  | password |  20 | f         |
+ 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | anton@stud.com  | password |  20 | f         |
+ 2f85eb2-407e-11ea-b467-d7f6bf5cef68  | vasia@stud.com  | password |  20 | f         |
+
 
 pg_db=# SELECT * FROM groups;
                   id                  |  name  |         permissions
@@ -115,6 +122,12 @@ pg_db=# SELECT * FROM usergroup;
  3b90ce36-4b3f-11ea-9535-395fa2417949 | 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | a2278d2-4b38-11ea-9d6c-e99a947f6918
  3b90ce34-4b3f-11ea-9535-395fa2417949 | 02f85eb9-407e-11ea-b467-d7f6bf5cef68 | ca2278d1-4b38-11ea-9d6c-e99a947f6918
  3b90ce33-4b3f-11ea-9535-395fa2417949 | 02f85eb7-407e-11ea-b467-d7f6bf5cef68 | ca2278d1-4b38-11ea-9d6c-e99a947f6918
+```
+
+\* 7. To clear db use script
+
+```shell
+npm run db:clear
 ```
 
 ## Task 1
@@ -284,3 +297,24 @@ following information:
 - method name;
 - arguments which have been passed to the method;
 - error message.
+
+## Task 6
+
+### TASK 6.1
+
+Add authorization to the already existing REST service:
+
+- Add login(username, password) method which should return JWTtoken;
+- Add a middleware which will proxy all the requests (except login) and check
+  that HTTPAuthorizationheader has the correct value of JWTtoken;
+- In case of the HTTPAuthorizationheader is absent in the request, the
+  middleware should stop further controller method execution and return HTTP 401
+  code (Unauthorized Error) and standard error message;
+- In case of HTTPAuthorization header has invalid JWTtoken in the request, the
+  middleware should return HTTP code 403 (Forbidden Error) and standard error
+  message.
+
+### TASK 6.2
+
+Add CORS middleware to access service methods from WEB applications hosted on
+another domains (https://github.com/expressjs/cors).
