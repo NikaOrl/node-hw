@@ -78,7 +78,7 @@ export default class UserController {
         res.status(404).json({ message: 'User not found' });
         return;
       }
-      res.status(200).json(deletedUser);
+      res.status(200).json({ message: 'The user was deleted' });
     } catch (err) {
       res.status(500).json({ error: err.message });
       throw Error(err.message);
