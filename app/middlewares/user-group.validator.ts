@@ -4,8 +4,9 @@ import { NextFunction, Response, Request } from 'express';
 import { IUserGroup } from '../models/user-group.model';
 
 const schema: Joi.ObjectSchema<IUserGroup> = Joi.object({
-  userId: Joi.string().required(),
-  groupId: Joi.string().required()
+  userIds: Joi.array()
+    .items(Joi.string())
+    .required()
 });
 
 const validate: (

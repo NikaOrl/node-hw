@@ -1,6 +1,6 @@
 import { UserService } from '../services/user.service';
 import { Request, Response } from 'express';
-import { ControllerLogger } from '../utils/logger';
+import { ControllerLogger } from '../utils/controller-logger';
 import { UserModel, IUser } from '../models/user.model';
 
 export default class UserController {

@@ -130,7 +130,7 @@ pg_db=# SELECT * FROM usergroup;
 npm run db:clear
 ```
 
-## Task 1
+## Task 1: BASICS. NODEJS FUNDAMENTAL THEORY
 
 ### TASK 1.1
 
@@ -165,7 +165,7 @@ modules.
 
 The task could be started by <i>npm run task1.3</i>
 
-## Task 2
+## Task 2: IN MEMORY CRUD REST SERVICE WITH VALIDATION
 
 The task could be started by <i>npm run task2</i>
 
@@ -198,7 +198,7 @@ In case of any property does not meet the validation requirements or the field
 is absent, return 400 (Bad Request) and detailed error message. For requests
 validation use special packages like joi.
 
-## Task 3
+## Task 3: POSTGRESQL AND LAYERED ARCHITECTURE
 
 There are two versions of task 3.
 
@@ -238,7 +238,7 @@ following set of directories:
 - data-access/
 - models/
 
-## Task 4
+## Task 4: SECOND ENTITY AND MANY-TO-MANY ENTITY RELATIONSHIPS
 
 ### TASK 4.1
 
@@ -270,7 +270,7 @@ Link User records in one table with Group records in another table.
 Add addUsersToGroup(groupId, userIds) method which will allow adding users to a
 certain group. Use transactionsto save records in DB.
 
-## Task 5
+## Task 5: LOGGING & ERROR HANDLING
 
 ### TASK 5.1
 
@@ -298,7 +298,7 @@ following information:
 - arguments which have been passed to the method;
 - error message.
 
-## Task 6
+## Task 6: JWT AUTHORIZATION AND CORS
 
 ### TASK 6.1
 
@@ -307,7 +307,7 @@ Add authorization to the already existing REST service:
 - Add login(username, password) method which should return JWTtoken;
 - Add a middleware which will proxy all the requests (except login) and check
   that HTTPAuthorizationheader has the correct value of JWTtoken;
-- In case of the HTTPAuthorizationheader is absent in the request, the
+- In case of the HTTPAuthorization header is absent in the request, the
   middleware should stop further controller method execution and return HTTP 401
   code (Unauthorized Error) and standard error message;
 - In case of HTTPAuthorization header has invalid JWTtoken in the request, the
@@ -318,3 +318,17 @@ Add authorization to the already existing REST service:
 
 Add CORS middleware to access service methods from WEB applications hosted on
 another domains (https://github.com/expressjs/cors).
+
+## Task 7: UNIT TESTS AND CONFIG
+
+### TASK 7.1
+
+- Add unit tests for User entity controller methods using Jestlibrary
+  (https://jestjs.io/);
+- Add unit tests for Group entity controller methods using Jest.
+
+### TASK 7.2
+
+The information on DB connection (connection string) should be stored in.env
+file and should be passed to the application using environment variables with
+the help of dotenv package (https://www.npmjs.com/package/dotenv).
