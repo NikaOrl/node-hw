@@ -2,16 +2,31 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import http from 'http';
+import { Sequelize } from 'sequelize-typescript';
 
 import userRouter from './routers/user.router';
 import groupRouter from './routers/group.router';
-import { sequelize } from './config/config';
 import {
   uncaughtExceptionLogger,
   uncaughtRejectionLogger
 } from './utils/logger';
+import { UserModel } from './models/user.model';
+import { GroupModel } from './models/group.model';
+import { UserGroupModel } from './models/user-group.model';
 
 dotenv.config();
+
+export const sequelize: Sequelize = new Sequelize({
+  dialect: 'postgres',
+  host: process.env.DB_HOST as string,
+  username: process.env.DB_USER as string,
+  database: process.env.DB_NAME as string,
+  define: {
+    timestamps: false
+  }
+});
+
+sequelize.addModels([UserModel, GroupModel, UserGroupModel]);
 
 export const app: express.Application = express();
 const port: number = parseInt(process.env.PORT as string, 10) || 3000;
