@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { GroupService } from '../services/group.service';
-import { ControllerLogger } from '../utils/logger';
+import { ControllerLogger } from '../utils/controller-logger';
 import { GroupModel, IGroup } from '../models/group.model';
 import { UserGroupModel } from '../models/user-group.model';
 

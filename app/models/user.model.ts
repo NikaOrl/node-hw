@@ -22,6 +22,11 @@ export interface IUserSearch {
   limit: number;
 }
 
+export interface ILoginData {
+  login: string;
+  password: string;
+}
+
 @Table({ tableName: 'users' })
 export class UserModel extends Model<UserModel> {
   @PrimaryKey

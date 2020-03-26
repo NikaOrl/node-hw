@@ -2,7 +2,7 @@ import { v1 as uuid } from 'uuid';
 
 import { IGroup, GroupModel } from '../models/group.model';
 import { UserGroupModel } from '../models/user-group.model';
-import { sequelize } from '../config/config';
+import { sequelize } from '..';
 
 export class GroupDAO {
   public static async getAllGroups(): Promise<GroupModel[]> {

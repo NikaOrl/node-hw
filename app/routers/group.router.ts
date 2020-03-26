@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import GroupController from '../controllers/group.controller';
 import { validateGroup } from '../middlewares/group.validator';
 import { validateUserGroup } from '../middlewares/user-group.validator';
-import { methodsLogger } from '../utils/logger';
+import { methodsLogger } from '../utils/methods-logger';
 import { auth } from '../middlewares/auth';
 
 const groupRouter: Router = express.Router();

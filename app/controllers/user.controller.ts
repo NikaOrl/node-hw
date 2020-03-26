@@ -1,6 +1,6 @@
 import { UserService } from '../services/user.service';
 import { Request, Response } from 'express';
-import { ControllerLogger } from '../utils/logger';
+import { ControllerLogger } from '../utils/controller-logger';
 import { UserModel, IUser } from '../models/user.model';
 
 export default class UserController {
@@ -78,7 +78,7 @@ export default class UserController {
         res.status(404).json({ message: 'User not found' });
         return;
       }
-      res.status(200).json(deletedUser);
+      res.status(200).json({ message: 'The user was deleted' });
     } catch (err) {
       res.status(500).json({ error: err.message });
       throw Error(err.message);
