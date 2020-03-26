@@ -44,19 +44,8 @@ psql postgres
 CREATE DATABASE pg_db;
 ```
 
-5. In the root folder (node-hw/) create a file with a name `db.config.ts` and
-   add the following code inside of it
-
-```shell
-export const options = {
-  client: 'pg',
-  connection: {
-    host: '127.0.0.1',
-    user: 'YOUR_USERNAME',
-    database: 'pg_db'
-  }
-};
-```
+5. Add your username in the env using the file `.env` or by setting
+   `DB_USER=YOUR_USERNAME` in the terminal
 
 You can check your 'YOUR_USERNAME' by the command `\list` in the terminal inside
 psql in the postgres database You'll see sth like
